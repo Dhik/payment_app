@@ -7,4 +7,4 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: "postgresql://mohammaddhikri:dhikri123!@localhost:5432/payment_app?schema=public"
+      DATABASE_URL: "postgresql://mohammaddhikri:xxxxxxxxxxxxxx@localhost:5432/payment_app?schema=public"

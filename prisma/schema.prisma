@@ -1,0 +1,37 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String
+  password String
+  accounts Account[]
+}
+
+model Account {
+  id         Int          @id @default(autoincrement())
+  type       String
+  userId     Int
+  user       User         @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+}
+
+model Transaction {
+  id        Int     @id @default(autoincrement())
+  amount    Float
+  currency  String
+  timestamp DateTime @default(now())
+  toAddress String?
+  status    String  @default("pending")
+  accountId Int
+  account   Account @relation(fields: [accountId], references: [id])
+}
